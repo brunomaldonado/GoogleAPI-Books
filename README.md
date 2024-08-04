@@ -2,16 +2,19 @@
 GoogleAPI-Books 
 
 ```sh
-cd utils/
-python3 mediaPlayer.py
-# from queueNode import Queue
-# from config import content_data, example
+cd GoogleAPI-Books/
+python3 main.py
 ```
 
 <p align="center">
-  <img src="./screenshot/enqueue.PNG" style="border-radius:6px" width="45%" alt="trinidad_and_tobago chart">
+  <img src="./screenshot/search.PNG" style="border-radius:6px" width="41%" alt="search book title">
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img src="./screenshot/dequeue.gif" style="border-radius:6px" width="41%" alt="united arab emirates chart">
+  <img src="./screenshot/borrowed.PNG" style="border-radius:6px" width="41%" alt="borrowed books">
+</p>
+<p align="center">
+  <img src="./screenshot/returned.PNG" style="border-radius:6px" width="41%" alt="search book title">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="./screenshot/list.PNG" style="border-radius:6px" width="41%" alt="borrowed books">
 </p>
 <!-- <p align="center">
   <img src="./images/gibraltar_europe.png" style="border-radius:6px", width="45% alt="gibraltar chart">
