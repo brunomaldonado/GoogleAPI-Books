@@ -9,10 +9,10 @@ python3 main.py
 <p align="center">
   <img src="./screenshot/search.PNG" style="border-radius:6px" width="41%" alt="search book title">
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img src="./screenshot/borrowed.PNG" style="border-radius:6px" width="41%" alt="borrowed books">
+  <img src="./screenshot/borrow.PNG" style="border-radius:6px" width="41%" alt="borrowed books">
 </p>
 <p align="center">
-  <img src="./screenshot/returned.PNG" style="border-radius:6px" width="41%" alt="search book title">
+  <img src="./screenshot/return.PNG" style="border-radius:6px" width="41%" alt="search book title">
 &nbsp; &nbsp; &nbsp; &nbsp;
   <img src="./screenshot/list.PNG" style="border-radius:6px" width="41%" alt="borrowed books">
 </p>
