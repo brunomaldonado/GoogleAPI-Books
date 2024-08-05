@@ -2,7 +2,6 @@ import threading
 import time
 from utils.config import indentation_title4, indentation_title5
 
-
 class bcolors:
    HEADER = '\033[95m'
    OKBLUE = '\033[94m'
@@ -38,7 +37,6 @@ class Book:
     indentation_title5(message)
     #print(, flush=True)
 
-
 class User:
   def __init__(self, name):
     self.name = name
@@ -54,7 +52,6 @@ class User:
       message = f"\n{bcolors.FAIL}The book of {book.title}, is not available.{bcolors.ENDC}\n"
       indentation_title5(message)
       #print(, flush=True)
-
 
   def return_book(self, book):
     if book in self.borrowed_books:
@@ -73,7 +70,6 @@ class Library:
     self.selected_number = []
     self.borrowed_books = []
     self.select_book_number_return = []
-    self.test_add_books = []
 
   def add_book(self, book):
     # if book == "":
