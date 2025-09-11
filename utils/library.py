@@ -18,7 +18,7 @@ class Book:
     self.title = title
     # self.author = author
     self.available = True
- 
+
   def borrow(self):
     if self.available:
       self.available = False
@@ -42,14 +42,14 @@ class User:
     self.name = name
     # self.user_id = user_id
     self.borrowed_books = []
- 
+
   def borrow_book(self, book):
     if book.available:
       book.borrow()
       self.borrowed_books.append(book)
     else:
       # print(f"\nThe book of {book.title}, is not available...\n")
-      message = f"\n{bcolors.FAIL}The book of {book.title}, is not available.{bcolors.ENDC}\n"
+      message = f"\n{bcolors.FAIL}The book of {book.title} is not available, it has been previously loaned.{bcolors.ENDC}\n"
       indentation_title5(message)
       #print(, flush=True)
 
@@ -58,7 +58,7 @@ class User:
       book.return_book()
       self.borrowed_books.remove(book)
     else:
-      message = f"\n{bcolors.HEADER}The book of {book.title} has not been on the borrowed.{bcolors.ENDC}"
+      message = f"\n{bcolors.FAIL}The book of {book.title} has not been on the borrowed.{bcolors.ENDC}"
       indentation_title5(message)
       #print()
 
@@ -69,7 +69,7 @@ class Library:
     self.book_number = []
     self.selected_number = []
     self.borrowed_books = []
-    self.select_book_number_return = []
+    self.book_number_return = []
 
   def add_book(self, book):
     # if book == "":
@@ -82,44 +82,43 @@ class Library:
   def register_user(self, user):
     self.users.append(user)
     print(f"\n               👩‍🎤 {user.name} has been register.\n")
- 
+
   def show_available_books(self):
     # print(f"\nbooks {self.books}\n")
 
-    if len(self.books) == 0:
-      print("\n       You don't have books added to the library.\n")
-    else:
-      print(" Books Available.\n")
-      formatted_titles = []
+    # if len(self.books) == 0:
+    #   print("\n       You don't have books added to the library.\n")
+    # else:
+    print(" Books Available.\n")
 
-      seen = set()
-      result = []
-      for num in self.book_number:
-        if num not in seen:
-          seen.add(num)
+    print(f"\nBOOK NUMBER{self.book_number}\nSELECTED NUMBER: {self.selected_number}\n")
+
+    formatted_titles = []
+
+    seen = set()
+    result = []
+    for num in self.book_number:
+      if num not in seen:
+        seen.add(num)
+        result.append(num)
+      else:
+        if result.count(num) < 1:
           result.append(num)
-        else:
-          if result.count(num) < 1:
-            result.append(num)
 
-     
-      for idx, (number, book) in enumerate(zip(result, self.books), start=1):
-        if book.available:
-          formatted_titles.append(f"{[number]} {book.title}")
 
-      for idx, formatted_title in enumerate(formatted_titles, start=1):
-        if idx < 10:
-          spacing_line = " "
-          print(spacing_line, end="", flush=True)
-          title_format = f"{idx}.- {formatted_title}"
-        else:
-          title_format = f"{idx}.- {formatted_title}"
-        print(indentation_title4(title_format))
+    for idx, (number, book) in enumerate(zip(result, self.books), start=1):
+      if book.available:
+        formatted_titles.append(f"[{bcolors.OKBLUE}{number:2}{bcolors.ENDC}] {book.title}")
 
-book1 = Book("El Monje Que Vendio Su Ferrari")
-book2 = Book("1984")
+    for idx, formatted_title in enumerate(formatted_titles, start=1):
+      title_format = f"{bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {formatted_title}"
+      print(indentation_title4(title_format))
 
-user1 = User("Donna")
+
+# book1 = Book("El Monje Que Vendio Su Ferrari")
+# book2 = Book("1984")
+
+# user1 = User("Donna")
 
 # library = Library()
 # library.add_book(book1)
