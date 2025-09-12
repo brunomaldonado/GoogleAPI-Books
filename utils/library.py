@@ -91,29 +91,23 @@ class Library:
     # else:
     print(" Books Available.\n")
 
-    print(f"\nBOOK NUMBER{self.book_number}\nSELECTED NUMBER: {self.selected_number}\n")
-
+    print(f"\nBOOK NUMBER: {self.book_number}\nSELECTED NUMBER: {self.selected_number}\n")
+    unique_numbers = []
     formatted_titles = []
 
-    seen = set()
-    result = []
     for num in self.book_number:
-      if num not in seen:
-        seen.add(num)
-        result.append(num)
-      else:
-        if result.count(num) < 1:
-          result.append(num)
+      if num not in unique_numbers:
+        unique_numbers.append(num)
 
+    # print(f"SELF.BOOKS: {self.books}\n LEN: {len(self.books)}")
 
-    for idx, (number, book) in enumerate(zip(result, self.books), start=1):
+    for idx, (number, book) in enumerate(zip(unique_numbers,self.books), start=1):
       if book.available:
         formatted_titles.append(f"[{bcolors.OKBLUE}{number:2}{bcolors.ENDC}] {book.title}")
 
     for idx, formatted_title in enumerate(formatted_titles, start=1):
       title_format = f"{bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {formatted_title}"
       print(indentation_title4(title_format))
-
 
 # book1 = Book("El Monje Que Vendio Su Ferrari")
 # book2 = Book("1984")

@@ -71,8 +71,9 @@ def main():
   def book_info():
     selection = int(input("\n Select book [#?]: "))
     option_book = select_index(selection)
+    # print(f"===OPTION BOOK: {option_book}")
     book_num = option_book + 1
-    # print(f"option book: {option_book + 1}")
+    # print(f"book_num: {book_num}")
     if len(library.users) == 0:
       print(f"\n      You need to register and CREATE a USER\n")
 
@@ -80,11 +81,15 @@ def main():
       if isinstance(option_book, int):
         get_title = data[option_book]
         book = Book(get_title['title'])
-        library.add_book(book)
+        # library.add_book(book)
         library.book_number.append(book_num)
+        library.books.append(book)
+
         if library.book_number.count(book_num) > 1 :
           print(f" This book has been recently added.....!\n\n")
-          library.book_number.remove(book_num)
+          # print(f"LIBRARY.BOOKS: {library.books}")
+          library.books.pop()
+          library.book_number.pop()
           return
 
         get_book = data[option_book]
@@ -169,13 +174,21 @@ def main():
         continue
 
       while True:
+        seen = set()
+        unique_value = []
+        for num in library.book_number:
+          if num not in seen:
+            unique_value.append(num)
+            seen.add(num)
+        # print(f"unique_value {unique_value}")
         book_set = set(library.book_number)
         selected_set = set(library.selected_number)
+        # print(f"book_set{book_set} --- selected_Set{selected_set}")
         if book_set & selected_set:
           available_books = len(book_set - selected_set)
           print(f"\n {available_books} books available to borrow.\n")
         else:
-          print(f"\n {len(library.book_number)} books available to borrow.\n")
+          print(f"\n {len(unique_value)} books available to borrow.\n")
 
         question = input(f"\n Do you need to borrow book? (y/n) ").strip().lower()
         if question == 'y':
@@ -189,13 +202,16 @@ def main():
               user = library.users[0]
               book = library.books[index_]
               #add borrowed books
+              # print(f"BOOK {book}")
+              print(f"\n You have selected the book number: {selection}\n {book.title}\n INDEX: {index_}\n")
               user.borrow_book(book)
-              # library.borrowed_books.append(book)
+              library.borrowed_books.append(book)
 
               if library.selected_number.count(selection) > 1 :
                 print(f" This book has been recently borrowed.....!\n\n")
+                library.selected_number.pop()
+                library.borrowed_books.pop()
 
-              library.borrowed_books.append(book)
               library.show_available_books()
 
             else:
@@ -205,6 +221,9 @@ def main():
             print(" Invalid input. Please enter a number.")
 
         elif question == 'n':
+          # for num in library.selected_number:
+          #   if num in library.book_number:
+          #     library.book_number.remove(num)
           break
         else:
           print(" Please enter y or n")
@@ -230,41 +249,49 @@ def main():
         print("\n            You don't have borrowed books.\n\n")
         continue
 
+      # user = library.users[0]
+
       def list_borrowed_books():
         print(" List of Borrowed Books.\n")
 
-        user = library.users[0]
         books = user.borrowed_books
 
-        selected_unique = list(set(library.selected_number))
+        selected_unique = list(dict.fromkeys(library.selected_number))
         formatted_titles = []
 
         print(f"\nSELECTED NUMBER: {selected_unique}\nBOOOK NUMBER RETURN: {library.book_number_return}\n")
 
-        for idx, number in enumerate(selected_unique, start=1):
-          print(f"{bcolors.OKCYAN}{idx:2}{bcolors.ENDC} [{bcolors.OKGREEN}{number:2}{bcolors.ENDC}]")
-
-
-
         numbers = [item for item in selected_unique if item not in library.book_number_return]
 
         for idx, (number, book) in enumerate(zip(numbers, books), start=1):
-          formatted_titles.append(f"[{bcolors.OKGREEN}{number}{bcolors.ENDC}] {book.title}")
+          print(f"{bcolors.OKCYAN}{idx:2}{bcolors.ENDC} [{bcolors.OKGREEN}{number}{bcolors.ENDC}] {book.title}")
 
-        for idx, formatted_title in enumerate(formatted_titles, start=1):
-          title_format = f"{bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {formatted_title}"
-          print(indentation_title4(title_format))
+        # numbers = [item for item in selected_unique if item not in library.book_number_return]
+
+        # for idx, (number, book) in enumerate(zip(numbers, books), start=1):
+        #   formatted_titles.append(f"[{bcolors.OKGREEN}{number}{bcolors.ENDC}] {book.title}")
+
+        # for idx, formatted_title in enumerate(formatted_titles, start=1):
+        #   title_format = f"{bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {formatted_title}"
+        #   print(indentation_title4(title_format))
 
       list_borrowed_books()
 
       while True:
+        seen = set()
+        unique_value = []
+        for num in library.selected_number:
+          if num not in seen:
+            unique_value.append(num)
+            seen.add(num)
+
         selected_set = set(library.selected_number)
         return_set = set(library.book_number_return)
         if selected_set & return_set:
           available_books = len(selected_set - return_set)
           print(f"\n {available_books} books available to return.\n")
         else:
-          print(f"\n {len(library.book_number)} books available to return.\n")
+          print(f"\n {len(unique_value)} books available to return.\n")
 
         question = input("\n Do you want to return the book? (y/n) ").strip().lower()
         if question == 'y':
@@ -273,27 +300,44 @@ def main():
             if selection in library.selected_number:
               index_ = library.selected_number.index(selection)
               library.book_number_return.append(selection)
-              # borrowed_book_number = selection
-              # print(f"borrowed_book_number {borrowed_book_number}\n")
-              book = library.borrowed_books[index_]
+
+              user = library.users[0]
+              book = user.borrowed_books[index_]
+              # print(f"BOOK {book}")
+              print(f"\n You have selected the book number: {selection}\n {book.title}")
               user.return_book(book)
+              library.books.append(book)
+
+              # for num in library.book_number_return:
+              #   if num in library.selected_number:
+              #     library.selected_number.remove(num)
 
               if library.book_number_return.count(selection) > 1 :
                 print(f" This book has been recently returned.....!\n\n")
+                library.book_number_return.pop()
+                # for num in library.book_number_return:
+                #   if num in library.selected_number:
+                #     library.selected_number.remove(num)
+
+                # for book in library.borrowed_books:
+                #   if book in library.selected_number:
+                #     library.selected_number.remove(book)
 
               list_borrowed_books()
 
             else:
               print(" Invalid selection, try again.")
+              list_borrowed_books()
           except ValueError:
             print(" Invalid input, please enter a number.")
             break
 
         elif question == 'n':
-          # library.selected_number = [number for number in library.borrowed_books if number not in library.book_number_return]
-          # print(f"cyle while -> library.selected_number {library.selected_number}")
+          # for num in library.book_number_return:
+          #   if num in library.selected_number:
+          #     library.selected_number.remove(num)
+
           # library.book_number_return.clear()
-          # library.selected_number.clear()
           break
         else:
           print(" Please enter y or n")
