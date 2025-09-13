@@ -262,7 +262,7 @@ def main():
         selected_unique = list(dict.fromkeys(library.selected_number))
         formatted_titles = []
 
-        print(f"\nSELECTED NUMBER: {selected_unique}\nBOOOK NUMBER RETURN: {library.book_number_return}\n")
+        # print(f"\nSELECTED NUMBER: {selected_unique}\nBOOOK NUMBER RETURN: {library.book_number_return}\n")
 
         numbers = [item for item in selected_unique if item not in library.book_number_return]
 
@@ -294,13 +294,13 @@ def main():
 
             if selection in library.selected_number:
               index_ = library.selected_number.index(selection)
-              print(f"INDEX: {index_}")
+              # print(f"INDEX: {index_}")
               library.book_number_return.append(selection)
 
               user = library.users[0]
               book = user.borrowed_books[index_]
               # print(f"BOOK {book}")
-              print(f"\n You have selected the book number: {selection}\n {book.title}\n INDEX: {index_}\n")
+              # print(f"\n You have selected the book number: {selection}\n {book.title}\n INDEX: {index_}\n")
               user.return_book(book)
               # return borrowed books
               library.books.append(book)

@@ -84,7 +84,7 @@ class Library:
     # if not any(book.available for book in self.books):
     print(" Books Available.\n")
 
-    print(f"\nBOOK NUMBER: {self.book_number}\nSELECTED NUMBER: {self.selected_number}\n")
+    # print(f"\nBOOK NUMBER: {self.book_number}\nSELECTED NUMBER: {self.selected_number}\n")
     unique_numbers = []
     formatted_titles = []
 
@@ -92,7 +92,7 @@ class Library:
       if num not in unique_numbers:
         unique_numbers.append(num)
 
-    print(f"LEN: {len(self.books)}\n")
+    # print(f"LEN: {len(self.books)}\n")
 
     self.books = list(dict.fromkeys(self.books))  # Remove duplicates while preserving order
 
