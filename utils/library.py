@@ -50,7 +50,6 @@ class User:
       # print(f"\nThe book of {book.title}, is not available...\n")
       message = f"\n{bcolors.FAIL}The book of {book.title} is not available, it has been previously loaned.{bcolors.ENDC}\n"
       indentation_title5(message)
-      #print(, flush=True)
 
   def return_book(self, book):
     if book in self.borrowed_books:
@@ -82,7 +81,7 @@ class Library:
     print(f"\n               👩‍🎤 {user.name} has been register.\n")
 
   def show_available_books(self):
-    # if not any(book.available for book in self.books):  
+    # if not any(book.available for book in self.books):
     print(" Books Available.\n")
 
     print(f"\nBOOK NUMBER: {self.book_number}\nSELECTED NUMBER: {self.selected_number}\n")
@@ -93,11 +92,20 @@ class Library:
       if num not in unique_numbers:
         unique_numbers.append(num)
 
-    # print(f"SELF.BOOKS: {self.books}\n LEN: {len(self.books)}")
+    print(f"LEN: {len(self.books)}\n")
+
+    self.books = list(dict.fromkeys(self.books))  # Remove duplicates while preserving order
+
+    # for book in self.books:
+    #   if book.available:
+    #     print(f"BOOK TITLE: {book.title} - AVAILABLE: {book.available}")
+    # print("\n")
 
     for idx, (number, book) in enumerate(zip(unique_numbers,self.books), start=1):
       if book.available:
         formatted_titles.append(f"[{bcolors.OKBLUE}{number:2}{bcolors.ENDC}] {book.title}")
+      # else:
+      #   formatted_titles.append(f"[{bcolors.FAIL}{number:2}{bcolors.ENDC}] {book.title}")
 
     for idx, formatted_title in enumerate(formatted_titles, start=1):
       title_format = f"{bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {formatted_title}"

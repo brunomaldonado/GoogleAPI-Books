@@ -89,7 +89,7 @@ def main():
         if library.book_number.count(book_num) > 1 :
           print(f" This book has been recently added.....!\n\n")
           # print(f"LIBRARY.BOOKS: {library.books}")
-          library.books[:-1]
+          library.books.pop()
           library.book_number.pop()
           return
 
