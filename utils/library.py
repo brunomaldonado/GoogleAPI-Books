@@ -26,7 +26,6 @@ class Book:
       message = f"\n{bcolors.OKBLUE}The book of {self.title}, has been borrowed.{bcolors.ENDC}\n"
       indentation_title5(message)
       #print(, flush=True)
-
     else:
       print(f"{self.title} is not available")
 
@@ -35,7 +34,7 @@ class Book:
    # print(f"\nThe book of {self.title} has been returned")
     message = f"\n{bcolors.OKGREEN}The book of {self.title}, has been returned.{bcolors.ENDC}"
     indentation_title5(message)
-    #print(, flush=True)
+
 
 class User:
   def __init__(self, name):
@@ -68,7 +67,6 @@ class Library:
     self.users = []
     self.book_number = []
     self.selected_number = []
-    self.borrowed_books = []
     self.book_number_return = []
 
   def add_book(self, book):
@@ -84,11 +82,7 @@ class Library:
     print(f"\n               👩‍🎤 {user.name} has been register.\n")
 
   def show_available_books(self):
-    # print(f"\nbooks {self.books}\n")
-
-    # if len(self.books) == 0:
-    #   print("\n       You don't have books added to the library.\n")
-    # else:
+    # if not any(book.available for book in self.books):  
     print(" Books Available.\n")
 
     print(f"\nBOOK NUMBER: {self.book_number}\nSELECTED NUMBER: {self.selected_number}\n")
