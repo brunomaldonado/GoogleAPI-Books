@@ -274,7 +274,6 @@ def main():
           books = user.borrowed_books
 
           selected_unique = list(dict.fromkeys(library.selected_number))
-          formatted_titles = []
 
           # print(f"\nSELECTED NUMBER: {selected_unique}\nBOOOK NUMBER RETURN: {library.book_number_return}\n")
 
@@ -287,6 +286,7 @@ def main():
             print(f" {bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {wrapped_lines[0].lstrip()}")
             for line in wrapped_lines[1:]:
               print(line)
+              
         list_borrowed_books()
 
         while True:
@@ -337,10 +337,10 @@ def main():
 
                 list_borrowed_books()
               else:
-                print(" Invalid selection!.\n\n")
+                print(" Invalid selection!!!.\n\n")
                 list_borrowed_books()
             except ValueError:
-              print("\n Invalid input, please enter a number.\n\n")
+              print(" Invalid input, please enter a number.\n\n")
               list_borrowed_books()
               continue
 

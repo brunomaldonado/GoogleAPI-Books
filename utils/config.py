@@ -16,7 +16,7 @@ def textwrap_book(title):
   return [f"{spacing_line}{line}" for line in wrapped_title]
 
 def textwrap_message(message):
-  spacing_line = " " * 2
+  spacing_line = " " * 1
   max_width = 53
   wrapped_title = textwrap.wrap(message, max_width)
   # first format
