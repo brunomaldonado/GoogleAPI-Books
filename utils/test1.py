@@ -1,3 +1,5 @@
+import textwrap
+
 # book_number = [2, 10, 8, 1]
 # selected_number = [8, 8]
 
@@ -12,11 +14,16 @@
 # else:
 #     print("No hay coincidencias")
 
+def textwrap_message(message):
+  spacing_line = " " * 2
+  max_width = 53
+  wrapped_title = textwrap.wrap(message, max_width)
+  # for line in wrapped_title:
+  #   print(f"{spacing_line}{line}")
 
-selected_number = [9, 5, 9, 5]
-book_return = [5]
+  return "\n".join([f"{spacing_line}{line}" for line in wrapped_title])
 
-set_number = set(selected_number)
-set_return = set(book_return)
+message = "The book of TRADING CRIPTO Y DIVISAS: Trading Institucional + Smart Money is not available, it has been previously loaned."
 
-print(f"\nselected_number {set_number}\nset_return {set_return}\n")
+# textwrap_message(message)
+print(f"\n{textwrap_message(message)}\n")

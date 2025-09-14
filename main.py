@@ -1,5 +1,5 @@
 from utils import server
-from utils.config import indentation_title1, indentation_title2, indentation_title3, indentation_title4, indentation_description
+from utils.config import indentation_title1, indentation_title2, indentation_title3, indentation_title4, indentation_description, textwrap_title, textwrap_book
 from random import randint
 from utils.library import Book, User, Library
 
@@ -58,7 +58,12 @@ def main():
       data.append(book['volumeInfo'])
       prices.append(book['saleInfo'])
     for idx, book in enumerate(data, start=1):
-      print(f"[{idx:2}] {indentation_title1(book['title'])}")
+      # print(f"[{idx:2}] {indentation_title1(book['title'])}")
+      wrapped_lines = textwrap_title(book['title'])
+      print(f" [{idx:2}] {wrapped_lines[0].lstrip()}")
+      for line in wrapped_lines[1:]:
+        print(line)
+
 
   seeker()
 
@@ -69,6 +74,8 @@ def main():
       return None
 
   def book_info():
+    # while True:
+    #   try:
     selection = int(input("\n Select book [#?]: "))
     option_book = select_index(selection)
     # print(f"===OPTION BOOK: {option_book}")
@@ -78,6 +85,7 @@ def main():
 
     if len(library.users) == 0:
       print(f"\n      You need to register and CREATE a USER\n")
+      # break
 
     else:
       if isinstance(option_book, int):
@@ -140,14 +148,11 @@ def main():
         print()
         #print(f"{description}")
         indentation_description(description)
+      # except ValueError:
+      #   print(" Please enter book number!")
+      #   continue
 
   book_info()
-
-  # def select_book(selection):
-  #   if 1 <= selection <= len(library.book_number):
-  #     return selection - 1
-  #   else:
-  #     return " Invalid Selection"
 
   def bookstore():
     while True:
@@ -183,7 +188,6 @@ def main():
             # print(f"BOOK {book}")
             # print(f"\n You have selected the book number: {selection}\n {book.title}\n INDEX: {index}\n")
             user.borrow_book(book)
-            # library.borrowed_books.append(book)
 
             if library.selected_number.count(selection) > 1:
               print(f" This book has been recently borrowed.....!\n\n")
@@ -192,146 +196,168 @@ def main():
             library.show_available_books()
 
           else:
-            print(" Enter a number, Invalid selection")
+            print(" Invalid selection!!!.\n\n")
             library.show_available_books()
         except ValueError:
-          print(" Invalid selection. Please enter a number.\n")
+          print(" Invalid selection. Please enter a number!.\n\n")
+          library.show_available_books()
       elif question == 'n':
         break
+      else:
+        print(" Please enter y/n")
 
   while True:
     print_options()
-    option = int(input("\n Enter option: "))
-    if option == 1:
-      print()
-      for idx, book in enumerate(data, start=1):
-        print(f"[{idx:2}] {indentation_title1(book['title'])}")
-      book_info()
-    elif option == 2:
-      seeker()
-      book_info()
-    elif option == 3:
-      if len(library.users) == 0:
-        user_name = "Bruno"
-      else:
-        user_name = library.users[0].name
-
-      spacing = " " * 23
-      print()
-      print("" * 1, "-" * 53)
-      print(f" {spacing}BOOKSTORE")
-      print(f" User: {user_name}")
-      print("" * 1, "-" * 53)
-      print()
-
-      if len(library.books) == 0:
-        print("\n       You don't have books added to the library.\n\n")
-      else:
-        library.show_available_books()
-        bookstore()
-
-    elif option == 4:
-      print(f"\n Create User")
-      create_user()
-
-    elif option == 5:
-      if len(library.users) == 0:
-        user_name = "Bruno"
-      else:
-        user_name = library.users[0].name
-
-      spacing = " " * 21
-      print()
-      print("" * 1, "-" * 53)
-      print(f" {spacing}BORROWED BOOKS")
-      print(f" User: 🤵🏻‍♀️ {user_name}")
-      print("" * 1, "-" * 53)
-      print()
-
-      user = library.users[0]
-
-      if len(user.borrowed_books) == 0:
-        print("\n            You don't have borrowed books.\n\n")
-        continue
-
-      def list_borrowed_books():
-        print(" List of Borrowed Books.\n")
-
-        books = user.borrowed_books
-
-        selected_unique = list(dict.fromkeys(library.selected_number))
-        formatted_titles = []
-
-        # print(f"\nSELECTED NUMBER: {selected_unique}\nBOOOK NUMBER RETURN: {library.book_number_return}\n")
-
-        numbers = [item for item in selected_unique if item not in library.book_number_return]
-
-        for idx, (number, book) in enumerate(zip(numbers, books), start=1):
-          print(f"{bcolors.OKCYAN}{idx:2}{bcolors.ENDC} [{bcolors.OKGREEN}{number:2}{bcolors.ENDC}] {book.title}")
-
-      list_borrowed_books()
-
-      while True:
-        seen = set()
-        unique_value = []
-        for num in library.selected_number:
-          if num not in seen:
-            unique_value.append(num)
-            seen.add(num)
-
-        selected_set = set(library.selected_number)
-        return_set = set(library.book_number_return)
-        if selected_set & return_set:
-          available_books = len(selected_set - return_set)
-          print(f"\n {available_books} books available to return.\n")
+    try:
+      option = int(input("\n Enter option: "))
+      if option == 1:
+        print()
+        # for idx, book in enumerate(data, start=1):
+        #   print(f"[{idx:2}] {indentation_title1(book['title'])}")
+        for idx, book in enumerate(data, start=1):
+          # print(f"[{idx:2}] {indentation_title1(book['title'])}")
+          wrapped_lines = textwrap_title(book['title'])
+          print(f" [{idx:2}] {wrapped_lines[0].lstrip()}")
+          for line in wrapped_lines[1:]:
+            print(line)
+        book_info()
+      elif option == 2:
+        seeker()
+        book_info()
+      elif option == 3:
+        if len(library.users) == 0:
+          user_name = "Bruno"
         else:
-          print(f"\n {len(unique_value)} books available to return.\n")
+          user_name = library.users[0].name
 
-        question = input("\n Do you want to return the book? (y/n) ").strip().lower()
-        if question == 'y':
-          try:
-            selection = int(input(f" Select book [{bcolors.OKGREEN}#{bcolors.ENDC}{bcolors.OKCYAN}?{bcolors.ENDC}]: "))
+        spacing = " " * 23
+        print()
+        print("" * 1, "-" * 53)
+        print(f" {spacing}BOOKSTORE")
+        print(f" User: {user_name}")
+        print("" * 1, "-" * 53)
+        print()
 
-            if selection in library.selected_number:
-              index_ = library.selected_number.index(selection)
-              # print(f"INDEX: {index_}")
-              library.book_number_return.append(selection)
+        if len(library.books) == 0:
+          print("\n       You don't have books added to the library.\n\n")
+        else:
+          library.show_available_books()
+          bookstore()
 
-              user = library.users[0]
-              book = user.borrowed_books[index_]
-              # print(f"BOOK {book}")
-              # print(f"\n You have selected the book number: {selection}\n {book.title}\n INDEX: {index_}\n")
-              user.return_book(book)
-              # return borrowed books
-              library.books.append(book)
+      elif option == 4:
+        print(f"\n Create User")
+        create_user()
 
-              for num in library.book_number_return:
-                if num in library.selected_number:
-                  library.selected_number.remove(num)
+      elif option == 5:
+        if len(library.users) == 0:
+          user_name = "Bruno"
+        else:
+          user_name = library.users[0].name
 
-              # if library.book_number_return.count(selection) > 1 :
-              #   print(f" This book has been recently returned.....!\n\n")
-              #   library.book_number_return.pop()
+        spacing = " " * 21
+        print()
+        print("" * 1, "-" * 53)
+        print(f" {spacing}BORROWED BOOKS")
+        print(f" User: 🤵🏻‍♀️ {user_name}")
+        print("" * 1, "-" * 53)
+        print()
 
+        user = library.users[0]
+
+        if len(user.borrowed_books) == 0:
+          print("\n            You don't have borrowed books.\n\n")
+          continue
+
+        def list_borrowed_books():
+          print(" List of Borrowed Books.\n")
+
+          books = user.borrowed_books
+
+          selected_unique = list(dict.fromkeys(library.selected_number))
+          formatted_titles = []
+
+          # print(f"\nSELECTED NUMBER: {selected_unique}\nBOOOK NUMBER RETURN: {library.book_number_return}\n")
+
+          numbers = [item for item in selected_unique if item not in library.book_number_return]
+
+          for idx, (number, book) in enumerate(zip(numbers, books), start=1):
+            # print(f"{bcolors.OKCYAN}{idx:2}{bcolors.ENDC} [{bcolors.OKGREEN}{number:2}{bcolors.ENDC}] {book.title}")
+            formatted_title = f"[{bcolors.OKGREEN}{number:2}{bcolors.ENDC}] {book.title}"
+            wrapped_lines = textwrap_book(formatted_title)
+            print(f" {bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {wrapped_lines[0].lstrip()}")
+            for line in wrapped_lines[1:]:
+              print(line)
+        list_borrowed_books()
+
+        while True:
+          seen = set()
+          unique_value = []
+          for num in library.selected_number:
+            if num not in seen:
+              unique_value.append(num)
+              seen.add(num)
+
+          selected_set = set(library.selected_number)
+          return_set = set(library.book_number_return)
+          if selected_set & return_set:
+            available_books = len(selected_set - return_set)
+            print(f"\n {available_books} books available to return.")
+          else:
+            print(f"\n {len(unique_value)} books available to return.")
+
+          question = input("\n Do you want to return the book? (y/n) ").strip().lower()
+          if question == 'y':
+            try:
+              selection = int(input(f" Select book [{bcolors.OKGREEN}#{bcolors.ENDC}{bcolors.OKCYAN}?{bcolors.ENDC}]: "))
+
+              if selection in library.selected_number:
+                index_ = library.selected_number.index(selection)
+                # print(f"INDEX: {index_}")
+                library.book_number_return.append(selection)
+
+                user = library.users[0]
+                book = user.borrowed_books[index_]
+                # print(f"BOOK {book}")
+                # print(f"\n You have selected the book number: {selection}\n {book.title}\n INDEX: {index_}\n")
+                user.return_book(book)
+                # return borrowed books
+                library.books.append(book)
+
+                for num in library.book_number_return:
+                  if num in library.selected_number:
+                    library.selected_number.remove(num)
+
+                # if library.book_number_return.count(selection) > 1 :
+                #   print(f" This book has been recently returned.....!\n\n")
+                #   library.book_number_return.pop()
+
+                list_borrowed_books()
+              elif selection in library.book_number_return:
+                print(f"\n This book has been recently returned.....!\n\n")
+
+                list_borrowed_books()
+              else:
+                print(" Invalid selection!.\n\n")
+                list_borrowed_books()
+            except ValueError:
+              print("\n Invalid input, please enter a number.\n\n")
               list_borrowed_books()
-            elif selection in library.book_number_return:
-              print(f" This book has been recently returned.....!\n\n")
-              list_borrowed_books()
-            else:
-              print(" Enter a number, Invalid selection\n\n")
-              list_borrowed_books()
+              continue
 
-          except ValueError:
-            print(" Invalid input, please enter a number.")
+          elif question == 'n':
+            library.book_number_return.clear()
             break
+          else:
+            print(" Please enter y or n")
 
-        elif question == 'n':
-          library.book_number_return.clear()
-          break
-        else:
-          print(" Please enter y or n")
-    elif option == 6:
-      break
+      elif option == 6:
+        break
+      else:
+        print(" Please enter a number! between 1 and 6!")
+        continue
+    except ValueError:
+      print(" Please enter a valid number!")
+      continue
 
 if __name__ == '__main__':
   main()

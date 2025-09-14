@@ -1,6 +1,7 @@
 import threading
 import time
-from utils.config import indentation_title4, indentation_title5
+from utils.config import indentation_title4, textwrap_message, textwrap_book, textwrap_message
+# import textwrap
 
 class bcolors:
    HEADER = '\033[95m'
@@ -23,18 +24,17 @@ class Book:
     if self.available:
       self.available = False
       # print(f"\nThe book of {self.title} has been borrowed\n")
-      message = f"\n{bcolors.OKBLUE}The book of {self.title}, has been borrowed.{bcolors.ENDC}\n"
-      indentation_title5(message)
-      #print(, flush=True)
+      message = f"{bcolors.OKBLUE}The book of {self.title}, has been borrowed.{bcolors.ENDC}"
+      print(f"\n{textwrap_message(message)}\n")
+
     else:
       print(f"{self.title} is not available")
 
   def return_book(self):
     self.available = True
    # print(f"\nThe book of {self.title} has been returned")
-    message = f"\n{bcolors.OKGREEN}The book of {self.title}, has been returned.{bcolors.ENDC}"
-    indentation_title5(message)
-
+    message = f"{bcolors.OKGREEN}The book of {self.title}, has been returned.{bcolors.ENDC}"
+    print(f"\n{textwrap_message(message)}\n")
 
 class User:
   def __init__(self, name):
@@ -48,16 +48,16 @@ class User:
       self.borrowed_books.append(book)
     else:
       # print(f"\nThe book of {book.title}, is not available...\n")
-      message = f"\n{bcolors.FAIL}The book of {book.title} is not available, it has been previously loaned.{bcolors.ENDC}\n"
-      indentation_title5(message)
+      message = f"{bcolors.FAIL}The book of {book.title} is not available, it has been previously loaned.{bcolors.ENDC}"
+      print(f"\n{textwrap_message(message)}\n")
 
   def return_book(self, book):
     if book in self.borrowed_books:
       book.return_book()
       self.borrowed_books.remove(book)
     else:
-      message = f"\n{bcolors.FAIL}The book of {book.title} has not been on the borrowed.{bcolors.ENDC}"
-      indentation_title5(message)
+      message = f"{bcolors.FAIL}The book of {book.title} has not been on the borrowed.{bcolors.ENDC}"
+      print(f"\n{textwrap_message(message)}\n")
       #print()
 
 class Library:
@@ -72,9 +72,9 @@ class Library:
     # if book == "":
     #   book.remove(book)
     self.books.append(book)
-    message = f"{bcolors.OKCYAN}The book of {book.title} has been added into the bookstore.{bcolors.ENDC}\n"
-    indentation_title5(message)
-    #print(f"{bcolors.OKCYAN}The book of {indentation_title5(book.title)} has been added into the bookstore...{bcolors.ENDC}\n", end="", flush=True)
+    message = f"{bcolors.OKCYAN}The book of {book.title} has been added into the bookstore.{bcolors.ENDC}"
+    print(f"\n{textwrap_message(message)}\n")
+    #print(f"{bcolors.OKCYAN}The book of {textwrap_message(book.title)} has been added into the bookstore...{bcolors.ENDC}\n", end="", flush=True)
 
   def register_user(self, user):
     self.users.append(user)
@@ -104,27 +104,11 @@ class Library:
     for idx, (number, book) in enumerate(zip(unique_numbers,self.books), start=1):
       if book.available:
         formatted_titles.append(f"[{bcolors.OKBLUE}{number:2}{bcolors.ENDC}] {book.title}")
-      # else:
-      #   formatted_titles.append(f"[{bcolors.FAIL}{number:2}{bcolors.ENDC}] {book.title}")
 
     for idx, formatted_title in enumerate(formatted_titles, start=1):
-      title_format = f"{bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {formatted_title}"
-      print(indentation_title4(title_format))
+      wrapped_lines = textwrap_book(formatted_title)
+      print(f" {bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {wrapped_lines[0].lstrip()}")
+      for line in wrapped_lines[1:]:
+        print(line)
 
-# book1 = Book("El Monje Que Vendio Su Ferrari")
-# book2 = Book("1984")
 
-# user1 = User("Donna")
-
-# library = Library()
-# library.add_book(book1)
-# library.add_book(book2)
-# library.register_user(user1)
-
-# library.show_available_books()
-
-# user1.borrow_book(book1)
-
-# library.show_available_books()
-
-# user1.return_book(book1)
