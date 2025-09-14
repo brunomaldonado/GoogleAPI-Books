@@ -1,7 +1,4 @@
-import threading
-import time
 from utils.config import indentation_title4, textwrap_message, textwrap_book, textwrap_message
-# import textwrap
 
 class bcolors:
    HEADER = '\033[95m'
@@ -91,19 +88,11 @@ class Library:
     for num in self.book_number:
       if num not in unique_numbers:
         unique_numbers.append(num)
-<<<<<<< HEAD
 
     # print(f"LEN: {len(self.books)}\n")
 
     self.books = list(dict.fromkeys(self.books))  # Remove duplicates while preserving order
 
-=======
-
-    # print(f"LEN: {len(self.books)}\n")
-
-    self.books = list(dict.fromkeys(self.books))  # Remove duplicates while preserving order
-
->>>>>>> 7f11870db6ce56037ca9c7ad323588e1ee678db7
     # for book in self.books:
     #   if book.available:
     #     print(f"BOOK TITLE: {book.title} - AVAILABLE: {book.available}")
@@ -118,8 +107,4 @@ class Library:
       print(f" {bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {wrapped_lines[0].lstrip()}")
       for line in wrapped_lines[1:]:
         print(line)
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 7f11870db6ce56037ca9c7ad323588e1ee678db7

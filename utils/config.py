@@ -1,34 +1,5 @@
 import time
 import textwrap
-<<<<<<< HEAD
-=======
-
-def textwrap_title(title):
-    spacing_line = " " * 6
-    max_width = 49
-    wrapped_title = textwrap.wrap(title, max_width)
-
-    return [f"{spacing_line}{line}" for line in wrapped_title]
-
-def textwrap_book(title):
-  spacing_line = " " * 9
-  max_width = 60
-  wrapped_title = textwrap.wrap(title, max_width)
-
-  return [f"{spacing_line}{line}" for line in wrapped_title]
-
-def textwrap_message(message):
-  spacing_line = " " * 1
-  max_width = 53
-  wrapped_title = textwrap.wrap(message, max_width)
-  # first format
-  # for line in wrapped_title:
-  #   print(f"{spacing_line}{line}")
-
-  # second format
-  return "\n".join([f"{spacing_line}{line}" for line in wrapped_title])
-
->>>>>>> 7f11870db6ce56037ca9c7ad323588e1ee678db7
 
 def textwrap_title(title):
     spacing_line = " " * 6
