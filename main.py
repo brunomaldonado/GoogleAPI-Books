@@ -1,5 +1,9 @@
 from utils import server
+<<<<<<< HEAD
 from utils.config import indentation_title1, indentation_title2, indentation_title3, indentation_title4, indentation_description, textwrap_title, textwrap_book, textwrap_authors
+=======
+from utils.config import indentation_title1, indentation_title2, indentation_title3, indentation_title4, indentation_description, textwrap_title, textwrap_book
+>>>>>>> 7f11870db6ce56037ca9c7ad323588e1ee678db7
 from random import randint
 from utils.library import Book, User, Library
 

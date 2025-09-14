@@ -1,3 +1,5 @@
+import textwrap
+
 # book_number = [2, 10, 8, 1]
 # selected_number = [8, 8]
 
@@ -13,7 +15,14 @@
 #     print("No hay coincidencias")
 import textwrap
 
+def textwrap_message(message):
+  spacing_line = " " * 2
+  max_width = 53
+  wrapped_title = textwrap.wrap(message, max_width)
+  # for line in wrapped_title:
+  #   print(f"{spacing_line}{line}")
 
+<<<<<<< HEAD
 def textwrap_authors(author):
   spacing_line = " " * 10
   max_width = 43
@@ -29,3 +38,11 @@ authors = "Douglas A. Bernstein, Julie Ann Pooley, Lynne Cohen, Steve Provost, J
 print(f" Authors: {textwrap_authors(authors)}")
 
  
+=======
+  return "\n".join([f"{spacing_line}{line}" for line in wrapped_title])
+
+message = "The book of TRADING CRIPTO Y DIVISAS: Trading Institucional + Smart Money is not available, it has been previously loaned."
+
+# textwrap_message(message)
+print(f"\n{textwrap_message(message)}\n")
+>>>>>>> 7f11870db6ce56037ca9c7ad323588e1ee678db7
