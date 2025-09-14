@@ -11,12 +11,21 @@
 #     print("Resultado:", resultado)
 # else:
 #     print("No hay coincidencias")
+import textwrap
 
 
-selected_number = [9, 5, 9, 5]
-book_return = [5]
+def textwrap_authors(author):
+  spacing_line = " " * 10
+  max_width = 43
+  wrapped_title = textwrap.wrap(author, max_width)
+  
+  lines = [wrapped_title[0]]
+  lines.extend(f"{spacing_line}{line}" for line in wrapped_title[1:])
+  return "\n".join(lines)
 
-set_number = set(selected_number)
-set_return = set(book_return)
+authors = "Douglas A. Bernstein, Julie Ann Pooley, Lynne Cohen, Steve Provost, Jacquelyn Cranney, Bethanie Gouldthorp, Neil Drew"
 
-print(f"\nselected_number {set_number}\nset_return {set_return}\n")
+#print("Authors: ")
+print(f" Authors: {textwrap_authors(authors)}")
+
+ 

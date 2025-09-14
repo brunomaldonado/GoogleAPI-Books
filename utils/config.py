@@ -1,5 +1,41 @@
 import time
+import textwrap
 
+def textwrap_title(title):
+    spacing_line = " " * 6
+    max_width = 49
+    wrapped_title = textwrap.wrap(title, max_width)
+
+    return [f"{spacing_line}{line}" for line in wrapped_title]
+
+def textwrap_book(title):
+  spacing_line = " " * 9
+  max_width = 60
+  wrapped_title = textwrap.wrap(title, max_width)
+
+  return [f"{spacing_line}{line}" for line in wrapped_title]
+
+def textwrap_message(message):
+  spacing_line = " " * 1
+  max_width = 53
+  wrapped_title = textwrap.wrap(message, max_width)
+  # first format
+  # for line in wrapped_title:
+  #   print(f"{spacing_line}{line}")
+
+  # second format
+  return "\n".join([f"{spacing_line}{line}" for line in wrapped_title])
+
+def textwrap_authors(author):
+  spacing_line = " " * 10
+  max_width = 48
+  wrapped_title = textwrap.wrap(author, max_width)
+  
+  lines = [wrapped_title[0]]
+  lines.extend(f"{spacing_line}{line}" for line in wrapped_title[1:])
+  
+  return "\n".join(lines)
+  	
 def indentation_title1(title, width=53, char_delay=0):
   # print(" " * 1, "-" * 53)
   first_line_prefix = " "
