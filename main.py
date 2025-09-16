@@ -1,5 +1,5 @@
 from utils import server
-from utils.config import indentation_title1, indentation_title2, indentation_title3, indentation_title4, indentation_description, textwrap_title, textwrap_book, textwrap_authors
+from utils.config import indentation_title1, indentation_title2, indentation_title3, indentation_title4, indentation_description, textwrap_title, textwrap_book, textwrap_authors, textwrap_message, textwrap_description
 from random import randint
 from utils.library import Book, User, Library
 
@@ -146,8 +146,8 @@ def main():
         print(f"\n{spacing} Price: {for_sale}")
         print("" * 1, "-" * 53)
         print()
-        #print(f"{description}")
-        indentation_description(description)
+        print(f"{textwrap_description(description)}\n\n")
+        #indentation_description(description)
       # except ValueError:
       #   print(" Please enter book number!")
       #   continue
@@ -333,9 +333,14 @@ def main():
 
                 list_borrowed_books()
               elif selection in library.book_number_return:
-                print(f"\n This book has been recently returned.....!\n\n")
+                index_ = library.book_number_return.index(selection)
+                book = user.returned_books[index_]
+                if index_ < len(user.returned_books):
+                  #print(f"The {book.title} is on books index[{index_}]")
+                  book.return_book()
+                  print(f"\n This book has been recently returned.....!\n\n")
 
-                list_borrowed_books()
+                  list_borrowed_books()
               else:
                 print(" Invalid selection!!!.\n\n")
                 list_borrowed_books()
@@ -346,6 +351,7 @@ def main():
 
           elif question == 'n':
             library.book_number_return.clear()
+            user.returned_books.clear()
             break
           else:
             print(" Please enter y or n")

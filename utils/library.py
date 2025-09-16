@@ -28,16 +28,21 @@ class Book:
       print(f"{self.title} is not available")
 
   def return_book(self):
-    self.available = True
-   # print(f"\nThe book of {self.title} has been returned")
-    message = f"{bcolors.OKGREEN}The book of {self.title}, has been returned.{bcolors.ENDC}"
-    print(f"\n{textwrap_message(message)}\n")
+    if not self.available:
+      self.available = True
+      # print(f"\nThe book of {self.title} has been returned")
+      message = f"{bcolors.OKGREEN}The book of {self.title}, has been returned.{bcolors.ENDC}"
+      print(f"\n{textwrap_message(message)}\n")
+    else:
+      message = f"{bcolors.WARNING}The book of {self.title} is not longer on loan!!!!!{bcolors.ENDC}"
+      print(f"\n{textwrap_message(message)}\n")
 
 class User:
   def __init__(self, name):
     self.name = name
     # self.user_id = user_id
     self.borrowed_books = []
+    self.returned_books = []
 
   def borrow_book(self, book):
     if book.available:
@@ -51,6 +56,7 @@ class User:
   def return_book(self, book):
     if book in self.borrowed_books:
       book.return_book()
+      self.returned_books.append(book)
       self.borrowed_books.remove(book)
     else:
       message = f"{bcolors.FAIL}The book of {book.title} has not been on the borrowed.{bcolors.ENDC}"

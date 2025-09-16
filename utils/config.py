@@ -35,7 +35,37 @@ def textwrap_authors(author):
   lines.extend(f"{spacing_line}{line}" for line in wrapped_title[1:])
   
   return "\n".join(lines)
-  	
+
+def textwrap_description(description):
+  spacing_line = " " * 1
+  max_width = 53
+  wrapped_lines = textwrap.wrap(description, max_width)
+
+  justified_lines = []
+  for i, line in enumerate(wrapped_lines):
+    if i == len(wrapped_lines) - 1:
+      # última línea → alineada a la izquierda
+      justified_lines.append(spacing_line + line)
+    else:
+      words = line.split()
+      if len(words) == 1:
+        # si hay solo una palabra, no se puede justificar
+        justified_lines.append(spacing_line + line)
+      else:
+        total_spaces = max_width - sum(len(word) for word in words)
+        gaps = len(words) - 1
+        space_between, extra = divmod(total_spaces, gaps)
+
+        # repartir espacios entre palabras
+        justified_line = ""
+        for j, word in enumerate(words):
+          justified_line += word
+          if j < gaps:
+              justified_line += " " * (space_between + (1 if j < extra else 0))
+        justified_lines.append(spacing_line + justified_line)
+
+  return "\n".join(justified_lines)
+
 def indentation_title1(title, width=53, char_delay=0):
   # print(" " * 1, "-" * 53)
   first_line_prefix = " "

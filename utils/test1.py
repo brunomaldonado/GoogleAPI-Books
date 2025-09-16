@@ -15,18 +15,15 @@
 
 import textwrap
 
-def textwrap_authors(author):
-  spacing_line = " " * 10
-  max_width = 43
-  wrapped_title = textwrap.wrap(author, max_width)
-  
-  lines = [wrapped_title[0]]
-  lines.extend(f"{spacing_line}{line}" for line in wrapped_title[1:])
-  return "\n".join(lines)
-
-authors = "Douglas A. Bernstein, Julie Ann Pooley, Lynne Cohen, Steve Provost, Jacquelyn Cranney, Bethanie Gouldthorp, Neil Drew"
-
-#print("Authors: ")
-print(f" Authors: {textwrap_authors(authors)}")
 
  
+ 
+b = ["a", "l", "o"]
+n = [6, 3, 9]
+ 
+while True:
+  selection = int(input("enter number: "))
+  if selection in n:
+    index_ = n.index(selection)
+    if index_ < len(b):
+      print(f" {b[index_]} is on index[{index_}]")
