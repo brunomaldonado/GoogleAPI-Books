@@ -1,8 +1,10 @@
 # GoogleAPI-Books
-GoogleAPI-Books 
+GoogleAPI-Books
 
 ```sh
-cd GoogleAPI-Books/../src/
+cd GoogleAPI-Books/
+pip install requeriments.txt
+.../src
 py main.py
 ```
 
