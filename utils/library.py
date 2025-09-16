@@ -35,7 +35,7 @@ class Book:
       print(f"\n{textwrap_message(message)}\n")
     else:
       message = f"{bcolors.WARNING}The book of {self.title} is not longer on loan!!!!!{bcolors.ENDC}"
-      print(f"\n{textwrap_message(message)}\n")
+      print(f"\n{textwrap_message(message)}")
 
 class User:
   def __init__(self, name):

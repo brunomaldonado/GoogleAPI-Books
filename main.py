@@ -1,5 +1,5 @@
 from utils import server
-from utils.config import indentation_title1, indentation_title2, indentation_title3, indentation_title4, indentation_description, textwrap_title, textwrap_book, textwrap_authors, textwrap_message, textwrap_description
+from utils.config import indentation_title2, indentation_title3, textwrap_title, textwrap_book, textwrap_authors, textwrap_message, textwrap_description
 from random import randint
 from utils.library import Book, User, Library
 
@@ -45,12 +45,12 @@ def main():
 
   data = []
   prices = []
-  def seeker():
+  def searched_books():
     #google_search = 'El monje que vendio su ferari'
     print("" * 1, "-" * 53)
     google_search = input("\n Enter 📖 title: ")
     print()
-    books = server.search_book(google_search)
+    books = server.get_book(google_search)
     # print(f"books: {books}\nlen: {len(books)}")
 
     for idx, book in enumerate(books, start=1):
@@ -65,7 +65,7 @@ def main():
         print(line)
 
 
-  seeker()
+  searched_books()
 
   def select_index(selection):
     if 1 <= selection <= len(data) or 1 <= selection <= len(prices):
@@ -222,7 +222,7 @@ def main():
             print(line)
         book_info()
       elif option == 2:
-        seeker()
+        searched_books()
         book_info()
       elif option == 3:
         if len(library.users) == 0:
@@ -286,7 +286,7 @@ def main():
             print(f" {bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {wrapped_lines[0].lstrip()}")
             for line in wrapped_lines[1:]:
               print(line)
-              
+
         list_borrowed_books()
 
         while True:
