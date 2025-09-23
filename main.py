@@ -75,30 +75,32 @@ def main():
     while True:
       try:
         selection = int(input("\n Select book [#?]: "))
-        option_book = select_index(selection)
-        book_num = option_book + 1
+        selected_number = select_index(selection)
         if len(library.users) == 0:
           print(f"\n      You need to register and CREATE a USER\n")
           break
 
         else:
-          if selection is None:
-            print(" Invalid selection!!!.\n")
+          if selected_number is None:
+            print(" Invalid selection!!!..............")
             continue
-          if isinstance(option_book, int):
-            get_title = data[option_book]
+          if isinstance(selected_number, int):
+            get_title = data[selected_number]
             book = Book(get_title['title'])
-            library.book_number.append(book_num)
+            # library.books.append(book)
+            library.book_number.append(selected_number+1)
             library.add_book(book)
 
-            if library.book_number.count(book_num) > 1 :
+            # print(f"selection: {selection}\nselected_number: {selected_number}\nlibrary.book_number: {library.book_number}\n")
+
+            if library.book_number.count(selection) > 1 :
               print(f" This book has been recently added.....!\n\n")
               # print(f"LIBRARY.BOOKS: {library.books}")
               library.books.pop()
               library.book_number.pop()
               return
 
-            get_book = data[option_book]
+            get_book = data[selected_number]
 
             if 'publisher' in get_book:
               editorial = get_book['publisher']
@@ -125,9 +127,9 @@ def main():
             author = ", ".join(map(str, authors))
             spacing = " " * 34
 
-            if option_book is not None:
-              if 'listPrice' in prices[option_book]:
-                for_sale = f"{prices[option_book]['listPrice']['amount']} {prices[option_book]['listPrice']['currencyCode']}"
+            if selected_number is not None:
+              if 'listPrice' in prices[selected_number]:
+                for_sale = f"{prices[selected_number]['listPrice']['amount']} {prices[selected_number]['listPrice']['currencyCode']}"
               else:
                 for_sale = "NOT FOR SALE"
 
