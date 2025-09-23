@@ -1,5 +1,5 @@
 from utils import server
-from utils.config import indentation_title2, indentation_title3, textwrap_title, textwrap_book, textwrap_authors, textwrap_message, textwrap_description
+from utils.config import indentation_title2, indentation_title3, textwrap_title, textwrap_book, textwrap_authors, textwrap_subtitle, textwrap_message, textwrap_description
 from random import randint
 from utils.library import Book, User, Library
 
@@ -136,10 +136,10 @@ def main():
             else:
               print("Invalid selection")
 
-            print("" * 1, "-" * 53)
+            print("" * 1, "-" * 54)
             print(f" Title: {indentation_title2(get_book['title'])}")
-            print(f" Sub Title: {indentation_title3(subtitle)}")
-            print(f" Authors: {textwrap_authors(author)}")
+            print(f"{textwrap_subtitle(subtitle)}")
+            print(f"{textwrap_authors(author)}")
             print(f" Editorial: {editorial}")
             print(f" Publication Date : {publication}")
             print(f"\n{spacing} Price: {for_sale}")

@@ -3,7 +3,7 @@ import textwrap
 
 def textwrap_title(title):
     spacing_line = " " * 6
-    max_width = 49
+    max_width = 48
     wrapped_title = textwrap.wrap(title, max_width)
 
     return [f"{spacing_line}{line}" for line in wrapped_title]
@@ -14,27 +14,41 @@ def textwrap_book(title):
   wrapped_title = textwrap.wrap(title, max_width)
 
   return [f"{spacing_line}{line}" for line in wrapped_title]
-
-def textwrap_message(message):
-  spacing_line = " " * 1
-  max_width = 53
-  wrapped_title = textwrap.wrap(message, max_width)
-  # first format
-  # for line in wrapped_title:
-  #   print(f"{spacing_line}{line}")
-
-  # second format
-  return "\n".join([f"{spacing_line}{line}" for line in wrapped_title])
-
-def textwrap_authors(author):
-  spacing_line = " " * 10
-  max_width = 48
-  wrapped_title = textwrap.wrap(author, max_width)
   
-  lines = [wrapped_title[0]]
-  lines.extend(f"{spacing_line}{line}" for line in wrapped_title[1:])
-  
-  return "\n".join(lines)
+def textwrap_message(title):
+  max_width = 54 # límite de ancho
+  wrapped_title = textwrap.fill(
+    title,
+    width=max_width,
+    initial_indent=" ",      # la primera línea arranca con un espacio
+    subsequent_indent=" "   # las demás líneas igual, alineadas a la izquierda
+    )
+  return wrapped_title
+
+def textwrap_subtitle(subtitle):
+  prefix = " Sub Title: "
+  max_width = 54
+
+  return textwrap.fill(
+    subtitle,
+    width=max_width,
+    initial_indent=prefix,
+    subsequent_indent=" " * len(prefix),
+    break_long_words=True,       # permite cortar palabras largas
+    break_on_hyphens=True        # permite dividir con guiones
+  )
+
+def textwrap_authors(title):
+  prefix = " Authors: "
+  max_width = 54 # límite de ancho
+  return textwrap.fill(
+    title,
+    width=max_width,
+    initial_indent=prefix,
+    subsequent_indent=" " * len(prefix),
+    break_long_words=True,
+    break_on_hyphens=True
+    )
 
 def textwrap_description(description):
   spacing_line = " " * 1
