@@ -1,15 +1,15 @@
-from utils.config import indentation_title4, textwrap_message, textwrap_book, textwrap_message
+from utils.config import textwrap_message, textwrap_booktitle
 
 class bcolors:
-   HEADER = '\033[95m'
-   OKBLUE = '\033[94m'
-   OKCYAN = '\033[96m'
-   OKGREEN = '\033[92m'
-   WARNING = '\033[93m'
-   FAIL = '\033[91m'
-   ENDC = '\033[0m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
+  HEADER = '\033[95m'
+  OKBLUE = '\033[94m'
+  OKCYAN = '\033[96m'
+  OKGREEN = '\033[92m'
+  WARNING = '\033[93m'
+  FAIL = '\033[91m'
+  ENDC = '\033[0m'
+  BOLD = '\033[1m'
+  UNDERLINE = '\033[4m'
 
 class Book:
   def __init__(self, title):
@@ -106,11 +106,8 @@ class Library:
 
     for idx, (number, book) in enumerate(zip(unique_numbers,self.books), start=1):
       if book.available:
-        formatted_titles.append(f"[{bcolors.OKBLUE}{number:2}{bcolors.ENDC}] {book.title}")
+        formatted_titles.append(f"[{number:2}] {book.title}")
 
     for idx, formatted_title in enumerate(formatted_titles, start=1):
-      wrapped_lines = textwrap_book(formatted_title)
-      print(f" {bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {wrapped_lines[0].lstrip()}")
-      for line in wrapped_lines[1:]:
-        print(line)
+      print(textwrap_booktitle(idx, formatted_title))
 

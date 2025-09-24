@@ -1,19 +1,19 @@
 from utils import server
-from utils.config import indentation_title2, indentation_title3, textwrap_title, textwrap_book, textwrap_authors, textwrap_subtitle, textwrap_message, textwrap_description
+from utils.config import textwrap_booksfound, textwrap_booktitle, textwrap_title, textwrap_subtitle, textwrap_authors, textwrap_message, textwrap_description
 from random import randint
 from utils.library import Book, User, Library
 
 class bcolors:
-   HEADER = '\033[95m'
-   OKBLUE = '\033[94m'
-   OKCYAN = '\033[96m'
-   OKGREEN = '\033[92m'
-   WARNING = '\033[93m'
-   FAIL = '\033[91m'
-   ENDC = '\033[0m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
-
+  HEADER = '\033[95m'
+  OKBLUE = '\033[94m'
+  OKCYAN = '\033[96m'
+  OKGREEN = '\033[92m'
+  WARNING = '\033[93m'
+  FAIL = '\033[91m'
+  ENDC = '\033[0m'
+  BOLD = '\033[1m'
+  UNDERLINE = '\033[4m'
+  
 emojis = ['📗', '📓', '📕', '📙', '📔']
 gen_emoji = ['👦', '👧']
 
@@ -57,7 +57,7 @@ def main():
       data.append(book['volumeInfo'])
       prices.append(book['saleInfo'])
     for idx, book in enumerate(data, start=1):
-      wrapped_lines = textwrap_title(book['title'])
+      wrapped_lines = textwrap_booksfound(book['title'])
       print(f" [{idx:2}] {wrapped_lines[0].lstrip()}")
       for line in wrapped_lines[1:]:
         print(line)
@@ -137,11 +137,11 @@ def main():
               print("Invalid selection")
 
             print("" * 1, "-" * 54)
-            print(f" Title: {indentation_title2(get_book['title'])}")
+            print(f"{textwrap_title(get_book['title'])}")
             print(f"{textwrap_subtitle(subtitle)}")
             print(f"{textwrap_authors(author)}")
             print(f" Editorial: {editorial}")
-            print(f" Publication Date : {publication}")
+            print(f" Publication Date: {publication}")
             print(f"\n{spacing} Price: {for_sale}")
             print("" * 1, "-" * 53)
             print()
@@ -208,7 +208,7 @@ def main():
       if option == 1:
         print()
         for idx, book in enumerate(data, start=1):
-          wrapped_lines = textwrap_title(book['title'])
+          wrapped_lines = textwrap_booksfound(book['title'])
           print(f" [{idx:2}] {wrapped_lines[0].lstrip()}")
           for line in wrapped_lines[1:]:
             print(line)
@@ -267,11 +267,8 @@ def main():
           numbers = [item for item in selected_unique if item not in library.book_number_return]
 
           for idx, (number, book) in enumerate(zip(numbers, books), start=1):
-            formatted_title = f"[{bcolors.OKGREEN}{number:2}{bcolors.ENDC}] {book.title}"
-            wrapped_lines = textwrap_book(formatted_title)
-            print(f" {bcolors.OKCYAN}{idx:2}{bcolors.ENDC} {wrapped_lines[0].lstrip()}")
-            for line in wrapped_lines[1:]:
-              print(line)
+            formatted_title = f"[{number:2}] {book.title}"
+            print(textwrap_booktitle(idx, formatted_title))
 
         list_borrowed_books()
 
