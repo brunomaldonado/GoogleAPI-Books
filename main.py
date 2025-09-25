@@ -123,8 +123,7 @@ def main():
               publication = get_book['publishedDate']
             else:
               publication = "2024-07-24"
-            authors = get_book['authors']
-            author = ", ".join(map(str, authors))
+            
             spacing = " " * 34
 
             if selected_number is not None:
