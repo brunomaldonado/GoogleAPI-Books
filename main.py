@@ -1,7 +1,18 @@
 from utils import server
-from utils.config import textwrap_booksfound, textwrap_booktitle, textwrap_title, textwrap_subtitle, textwrap_authors, textwrap_message, textwrap_description
+from utils.config import textwrap_booksfound, textwrap_booktitle, textwrap_title, textwrap_subtitle, textwrap_authors, textwrap_description
 from random import randint
 from utils.library import Book, User, Library
+
+class bcolors:
+   HEADER = '\033[95m'
+   OKBLUE = '\033[94m'
+   OKCYAN = '\033[96m'
+   OKGREEN = '\033[92m'
+   WARNING = '\033[93m'
+   FAIL = '\033[91m'
+   ENDC = '\033[0m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
   
 emojis = ['📗', '📓', '📕', '📙', '📔']
 gen_emoji = ['👦', '👧']
